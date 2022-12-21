@@ -1,7 +1,6 @@
-import React from "react";
-
 type ParticipantFields =
-  'complexQualityBoost'
+  'entity'
+  | 'complexQualityBoost'
   | 'lotTime'
   | 'warrantyObligations'
   | 'paymentTerms'
@@ -15,6 +14,7 @@ type ExecuteValue = {
 };
 
 type ParticipantModel = {
+  entity: ExecuteValue;
   complexQualityBoost: ExecuteValue;
   lotTime: ExecuteValue;
   warrantyObligations: ExecuteValue;
