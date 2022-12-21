@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import uuid from '../utils/uuid';
 
 type Props = {
   title: string;
@@ -13,7 +14,7 @@ const TenderTableRow: FC<Props> = ({
     <td className={'max-w-[450px]'}>{title}</td>
     <>{participants?.map(
         (value) => (
-          <td className="w-64">{value}</td>
+          <td key={uuid()} className="w-64">{value}</td>
         )
       )
     }</>
