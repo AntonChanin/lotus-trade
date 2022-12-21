@@ -1,9 +1,10 @@
 import React, { useState, useEffect, FC } from 'react'
+import hourglass from '../assets/hourglass.svg';
 
 
 type Props = {
-  initialMinute: number;
-  initialSeconds : number;
+  initialMinute?: number;
+  initialSeconds? : number;
   callback?: () => void;
 }
 
@@ -40,10 +41,15 @@ const Timer: FC<Props> = (props) => {
         && (seconds === 0)
       )
         ? null
-        : <h1> {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
+        : (
+          <div className="flex place-items-center">
+            <h1>{minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1>
+            <img className="w-8 h-8" alt="" src={hourglass} />
+          </div>
+        )
       }
     </>
   )
-}
+};
 
 export default Timer;

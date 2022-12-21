@@ -150,18 +150,18 @@ const TenderTable: FC = () => {
   ];
 
   const [moveListener, setMoveListener] = useState(participants.map((_, i) => (i === 0)));
+  const [prevIndex, setPrevIndex] = useState(0);
 
   const moveHandler = () => {
     setMoveListener(
       moveListener.map((move, index) => {
-        let prevIndex = 0;
         if (move) {
-          prevIndex = index;
+          setPrevIndex(index);
           return !move;
         }
         if (index === prevIndex + 1) {
           if (index === (moveListener.length - 1)) {
-            prevIndex = 0;
+            setPrevIndex(0);
           }
           return !move;
         }
@@ -181,7 +181,7 @@ const TenderTable: FC = () => {
               ? (
                 <td className="text-red-400 m-auto font-bold" key={uuid()}>
                   <div className="flex justify-center">
-                    <Timer initialMinute={2} initialSeconds={0} callback={moveHandler} />
+                    <Timer initialMinute={2} callback={moveHandler} />
                   </div>
                 </td>
               )
