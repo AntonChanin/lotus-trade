@@ -1,4 +1,4 @@
-
+import React from 'react';
 
 const vatCalc = (props: Record<string, string | number>) => {
   const { full, vat, withoutVAT, currency } = props;
