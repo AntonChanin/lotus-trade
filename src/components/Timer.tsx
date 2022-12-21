@@ -11,7 +11,7 @@ const Timer: FC<Props> = (props) => {
   const { initialMinute = 0,initialSeconds = 0, callback } = props;
   const [ minutes, setMinutes ] = useState(initialMinute);
   const [ seconds, setSeconds ] =  useState(initialSeconds);
-  
+
   useEffect(() => {
   let myInterval = setInterval(
     () => {
