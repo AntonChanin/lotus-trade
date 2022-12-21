@@ -10,7 +10,8 @@ type Props = {
 const Timer: FC<Props> = (props) => {
   const { initialMinute = 0,initialSeconds = 0, callback } = props;
   const [ minutes, setMinutes ] = useState(initialMinute);
-  const [seconds, setSeconds ] =  useState(initialSeconds);
+  const [ seconds, setSeconds ] =  useState(initialSeconds);
+  
   useEffect(() => {
   let myInterval = setInterval(
     () => {
@@ -34,7 +35,10 @@ const Timer: FC<Props> = (props) => {
 
   return (
     <>
-      { minutes === 0 && seconds === 0
+      {(
+        (minutes === 0)
+        && (seconds === 0)
+      )
         ? null
         : <h1> {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
       }
