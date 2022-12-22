@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { ParticipantModel } from '../model/participant';
-import { vatCalc } from '../utils/render';
+import { renderVatCalc } from '../utils/render';
 
 class TenderStore {
   participants: ParticipantModel[] = [
@@ -17,7 +17,7 @@ class TenderStore {
           withoutVAT: '2,475,000',
           currency: 'руб',
         },
-        render: vatCalc,
+        render: renderVatCalc,
       },
       action: { value: '', },
     },
@@ -34,7 +34,7 @@ class TenderStore {
           withoutVAT: '2,475,000',
           currency: 'руб',
         },
-        render: vatCalc,
+        render: renderVatCalc,
       },
       action: { value: '', },
     },
@@ -51,7 +51,7 @@ class TenderStore {
           withoutVAT: '2,475,000',
           currency: 'руб',
         },
-        render: vatCalc,
+        render: renderVatCalc,
       },
       action: { value: '', },
     },
@@ -68,7 +68,7 @@ class TenderStore {
           withoutVAT: '2,475,000',
           currency: 'руб',
         },
-        render: vatCalc,
+        render: renderVatCalc,
       },
       action: { value: '', },
     },
@@ -85,7 +85,7 @@ class TenderStore {
           withoutVAT: '2,475,000',
           currency: 'руб',
         },
-        render: vatCalc,
+        render: renderVatCalc,
       },
       action: { value: '', },
     },

@@ -9,7 +9,7 @@ type Props = {
 }
 
 const Timer: FC<Props> = (props) => {
-  const { initialMinute = 0,initialSeconds = 0, callback } = props;
+  const { initialMinute = 0, initialSeconds = 0, callback } = props;
   const [ minutes, setMinutes ] = useState(initialMinute);
   const [ seconds, setSeconds ] =  useState(initialSeconds);
 
@@ -51,5 +51,10 @@ const Timer: FC<Props> = (props) => {
     </>
   )
 };
+
+Timer.defaultProps = {
+  initialMinute: 0,
+  initialSeconds: 0,
+}
 
 export default Timer;

@@ -1,16 +1,16 @@
 import React, { FC, useState } from 'react';
 
-import TenderTableTitle from './TenderTableTitle';
-import Timer from './Timer';
-import uuid from '../utils/uuid';
+import TenderTableTitledRow from './TenderTableTitledRow';
 import { ParticipantModel } from '../model/participant';
+import { renderParticipantsTitles, renderTimer } from '../utils/render';
 
 type Props = {
   participants: ParticipantModel[];
+  className?: string;
 }
 
 const TenderTableHead: FC<Props> = (props) => {
-  const { participants } = props;
+  const { participants, className } = props;
   const [activeIndex, setActiveIndex] = useState(0);
 
   const orderHandler = () => {
@@ -19,40 +19,32 @@ const TenderTableHead: FC<Props> = (props) => {
     } else {
       setActiveIndex(activeIndex + 1);
     }
+  };
+
+  const timerModel = {
+    title: 'ХОД',
+    subTitle: renderTimer(activeIndex, orderHandler),
+    participants: participants,
+    className: 'h-9',
+  };
+
+  const paramsAndRequestsModel = {
+    title: 'ПАРАМЕТРЫ И ТРЕБОВАНИЯ',
+    subTitle: renderParticipantsTitles,
+    participants: participants,
   }
 
   return (
-    <thead>
-      <tr className="h-9">
-        <TenderTableTitle title="ХОД" />
-        {participants.map((_, index) => (
-          index === activeIndex
-          ? (
-            <td className="text-red-400 m-auto font-bold" key={uuid()}>
-              <div className="flex justify-center">
-                <Timer initialMinute={2} callback={orderHandler} />
-              </div>
-            </td>
-          ) : (
-            <td key={uuid()} />
-          )
-        ))}
-      </tr>
-      <tr>
-        <TenderTableTitle title="ПАРАМЕТРЫ И ТРЕБОВАНИЯ" />
-        {participants.map((_, index) => (
-          <TenderTableTitle
-            key={uuid()}
-            className="flex flex-col"
-            title={[
-              `УЧАСТНИК №${index + 1} `,
-              `${_.entity.render?.(_.entity.renderProps ?? { value: _.entity.value }) ?? _.entity.value}`,
-            ]}
-          />
-        ))}
-      </tr>
+    <thead className={className}>
+      <TenderTableTitledRow model={timerModel} />
+      <TenderTableTitledRow model={paramsAndRequestsModel} />
     </thead>
   );
-}
+};
+
+TenderTableHead.defaultProps = {
+  participants: [],
+  className: '',
+};
 
 export default TenderTableHead;
