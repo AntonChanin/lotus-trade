@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import TenderPage from './pages/TenderPage';
+import AuthPage from './pages/AuthPage';
 import './App.css';
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
     <div className="App">
       <Navigation />
       <Routes>
-        <Route path="/" element={<TenderPage />} />
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/tenders" element={<TenderPage />} />
       </Routes>
       <Footer/>
     </div>
