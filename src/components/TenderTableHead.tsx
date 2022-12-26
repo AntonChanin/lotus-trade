@@ -1,8 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useLayoutEffect, useState } from 'react';
+import { clamp } from 'lodash';
 
 import TenderTableTitledRow from './TenderTableTitledRow';
 import { ParticipantModel } from '../model/participant';
 import { renderParticipantsTitles, renderTimer } from '../utils/render';
+import TenderStoreInstance from '../store';
 
 type Props = {
   participants: ParticipantModel[];
@@ -11,7 +13,20 @@ type Props = {
 
 const TenderTableHead: FC<Props> = (props) => {
   const { participants, className } = props;
+  const { ws } = TenderStoreInstance;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [initialMinute, setInitialMinute] = useState(2);
+  const [initialSeconds, setInitialSeconds] = useState(0);
+
+  useLayoutEffect(() => {
+    ws.onmessage = response => {
+      const parseResponse = JSON.parse(response.data);
+      console.log('onmessage', parseResponse);
+      setActiveIndex(parseResponse.order);
+      setInitialSeconds(parseResponse.seconds);
+      setInitialMinute(parseResponse.minute);
+    };
+  })
 
   const orderHandler = () => {
     if (activeIndex === (participants.length - 1)) {
@@ -19,11 +34,12 @@ const TenderTableHead: FC<Props> = (props) => {
     } else {
       setActiveIndex(activeIndex + 1);
     }
+    ws.send(JSON.stringify({ order: activeIndex, initialMinute, initialSeconds }));
   };
 
   const timerModel = {
     title: 'ХОД',
-    subTitle: renderTimer(activeIndex, orderHandler),
+    subTitle: renderTimer({ activeIndex, initialMinute, initialSeconds }, orderHandler),
     participants: participants,
     className: 'h-9',
   };
