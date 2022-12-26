@@ -1,10 +1,8 @@
-import React, { FC, useLayoutEffect, useState } from 'react';
-import { clamp } from 'lodash';
+import React, { FC } from 'react';
 
 import TenderTableTitledRow from './TenderTableTitledRow';
 import { ParticipantModel } from '../model/participant';
 import { renderParticipantsTitles, renderTimer } from '../utils/render';
-import TenderStoreInstance from '../store';
 import useTimer from '../hooks/useTimer';
 
 type Props = {
