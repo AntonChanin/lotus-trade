@@ -3,6 +3,7 @@ import { ParticipantModel } from '../model/participant';
 import { renderVatCalc } from '../utils/render';
 
 class TenderStore {
+  ws = new WebSocket('ws://localhost:5001');
   participants: ParticipantModel[] = [
     {
       entity: { value: 'Mitsubishi', },
@@ -93,6 +94,7 @@ class TenderStore {
 
   constructor() {
     makeObservable(this, {
+      ws: observable,
       participants: observable,
       setParticipants: action.bound,
     })

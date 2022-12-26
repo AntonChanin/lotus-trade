@@ -14,9 +14,15 @@ const renderVatCalc = (props: Record<string, string | number>) => {
   )
 };
 
-const renderTimer: (activeIndex: number, callback?: () => void) => TitleGenerator  = (activeIndex, callback) => ({ index }) => (
+const renderTimer: (
+  props: {activeIndex: number, initialMinute: number, initialSeconds: number },
+  callback?: () => void
+) => TitleGenerator  = (
+  { activeIndex, initialMinute = 0, initialSeconds = 0 },
+  callback,
+) => ({ index }) => (
   <div className="flex justify-center text-red-400 m-auto font-bold">
-    {index === activeIndex ? <Timer initialMinute={2} callback={callback} /> : null}
+    {index === activeIndex ? <Timer initialMinute={initialMinute} initialSeconds={initialSeconds} callback={callback} /> : null}
   </div>
 );
 

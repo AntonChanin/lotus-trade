@@ -1,8 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import TenderTableTitledRow from './TenderTableTitledRow';
 import { ParticipantModel } from '../model/participant';
 import { renderParticipantsTitles, renderTimer } from '../utils/render';
+import useTimer from '../hooks/useTimer';
 
 type Props = {
   participants: ParticipantModel[];
@@ -11,19 +12,11 @@ type Props = {
 
 const TenderTableHead: FC<Props> = (props) => {
   const { participants, className } = props;
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const orderHandler = () => {
-    if (activeIndex === (participants.length - 1)) {
-      setActiveIndex(0);
-    } else {
-      setActiveIndex(activeIndex + 1);
-    }
-  };
+  const { activeIndex, initialMinute, initialSeconds } = useTimer();
 
   const timerModel = {
     title: 'ХОД',
-    subTitle: renderTimer(activeIndex, orderHandler),
+    subTitle: renderTimer({ activeIndex, initialMinute, initialSeconds }),
     participants: participants,
     className: 'h-9',
   };
