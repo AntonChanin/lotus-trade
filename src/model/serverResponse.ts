@@ -1,6 +1,8 @@
-type OrderMark = {
-    order: number;
-    activateTimestamp: string;
+import { ParticipantServerModel } from './participant';
+
+type ServerResponse = {
+    roomId: string;
+    participants: ParticipantServerModel[];
 };
 
-export type { OrderMark };
+export type { ServerResponse };

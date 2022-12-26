@@ -15,14 +15,14 @@ const renderVatCalc = (props: Record<string, string | number>) => {
 };
 
 const renderTimer: (
-  props: {activeIndex: number, initialMinute: number, initialSeconds: number },
+  props: Record<string, string | number>,
   callback?: () => void
 ) => TitleGenerator  = (
   { activeIndex, initialMinute = 0, initialSeconds = 0 },
   callback,
 ) => ({ index }) => (
   <div className="flex justify-center text-red-400 m-auto font-bold">
-    {index === activeIndex ? <Timer initialMinute={initialMinute} initialSeconds={initialSeconds} callback={callback} /> : null}
+    {index === activeIndex ? <Timer initialMinute={+initialMinute} initialSeconds={+initialSeconds} callback={callback} /> : null}
   </div>
 );
 
@@ -31,4 +31,16 @@ const renderParticipantsTitles: TitleGenerator = ({ el, index }) => [
   `${el.entity.render?.(el.entity.renderProps ?? { value: el.entity.value }) ?? el.entity.value}`,
 ];
 
-export { renderTimer, renderVatCalc, renderParticipantsTitles };
+const getRender: Record<
+  string, (
+    (
+      props: Record<string, string | number>, callback?: () => void
+    ) => JSX.Element | TitleGenerator
+  ) | TitleGenerator | undefined
+> = {
+  renderVatCalc,
+  renderTimer,
+  renderParticipantsTitles,
+}
+
+export { renderTimer, renderVatCalc, renderParticipantsTitles, getRender };

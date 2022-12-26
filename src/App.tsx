@@ -13,7 +13,10 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<AuthPage />} />
-        <Route path="/tenders" element={<TenderPage />} />
+        <Route
+          path="/tenders/:roomId"
+          element={<TenderPage />}
+        />
       </Routes>
       <Footer/>
     </div>

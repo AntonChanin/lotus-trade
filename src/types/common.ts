@@ -5,4 +5,11 @@ type ExecuteValue = {
   renderProps?: Record<string, string | number>;
 };
 
-export type { ExecuteValue };
+type ServerValue = {
+  value: string | number;
+  type?: 'string' | 'number';
+  render?: string;
+  renderProps?: Record<string, string | number>;
+}
+
+export type { ExecuteValue, ServerValue };

@@ -1,4 +1,4 @@
-import React, { FC, FormEventHandler, useState } from 'react';
+import React, { FC, FormEventHandler, Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ParticipantModel } from '../model/participant';
@@ -7,6 +7,7 @@ import { renderVatCalc } from '../utils/render';
 import TenderInput from './TenderInput';
 import TenderStoreInstance from '../store';
 import AcceptModal from './AcceptModal';
+import uuid from '../utils/uuid';
 
 type Props = {
   localization?: Record<string, string>;
@@ -50,7 +51,7 @@ const AuthForm: FC<Props> = ({ localization }) => {
         const isNumber = model[key].type === 'number';
         const isSpecialRender = !!model[key].render;
         return (
-          <>
+          <Fragment key={uuid()}>
             <TenderInput
               label={`${localization?.[key]}` ?? key}
               callback={(value) => { model[key] = { value: isNumber ? +value : value } }}
@@ -75,12 +76,13 @@ const AuthForm: FC<Props> = ({ localization }) => {
                         }
                       }}
                       className="hover:bg-gradient-to-r from-sky-100 to-indigo-100 p-2 max-w-2xl w-[calc(100vw-100px)] flex justify-between"
+                      key={uuid()}
                     />))
                   }
                 </>
               )}
             </>
-          </>
+          </ Fragment>
         )
       })
     }

@@ -1,6 +1,10 @@
 import { action, makeObservable, observable } from 'mobx';
+
 import { ParticipantModel } from '../model/participant';
-import { renderVatCalc } from '../utils/render';
+import { ExecuteValue } from '../types/common';
+import { ParticipantFields } from '../types/participant';
+import { getRender, renderVatCalc } from '../utils/render';
+import { GetServiceInstance } from './services/get.service';
 
 class TenderStore {
   ws = new WebSocket('ws://localhost:5001');
@@ -102,6 +106,23 @@ class TenderStore {
 
   setParticipants(changeParticipants: ParticipantModel[]) {
     this.participants = changeParticipants;
+  }
+
+  async loadRoom(roomId: string) {
+    const room = await GetServiceInstance.getRoom(roomId);
+    const { participants } = room;
+    const result = participants.map(
+      (participant) => (
+        {
+          ...Object.keys(participant).map((key) => ({
+            [key]: {
+            ...participant[key as ParticipantFields],
+            render: getRender[participant[key as ParticipantFields].render ?? ''],
+          }
+          })),
+        }
+      ));
+    console.log(result);
   }
 }
 
