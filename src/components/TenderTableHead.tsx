@@ -21,7 +21,6 @@ const TenderTableHead: FC<Props> = (props) => {
   useLayoutEffect(() => {
     ws.onmessage = response => {
       const parseResponse = JSON.parse(response.data);
-      console.log('onmessage', parseResponse);
       setActiveIndex(parseResponse.order);
       setInitialSeconds(parseResponse.seconds);
       setInitialMinute(parseResponse.minute);
